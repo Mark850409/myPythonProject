@@ -9,15 +9,18 @@ app = Flask(__name__)
 #這邊建立MYSQL連線資訊
 
 # 取得資料庫設定檔
-config = configparser.ConfigParser()
-print("config:", config)
-config.read("my_config.ini")
+
+
+       try:
+            config = configparser.ConfigParser()
+            config.read("my_config.ini")
+            print("success")
+        except ConfigParser.NoOptionError as error:
+            print(error)
+        except ConfigParser.NoSectionError as error:
+            print(error)
 
 # 讀取資料庫變數
-username = config['DB']['username']
-password = config['DB']['password']
-print(username)
-print(password)
 
 #username = config.get("DB", "username")
 #password = config.get("DB", "password")

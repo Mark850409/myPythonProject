@@ -18,12 +18,11 @@ stages:
     - task: DockerCompose@0
       inputs:
         containerregistrytype: 'Azure Container Registry'
-        azureSubscription: 'Azure subscription 1 (08f3d78b-9c30-4ff5-b097-5fb7283bafba)'
-        azureContainerRegistry: '{"loginServer":"myrefistry.azurecr.io", "id" : "/subscriptions/08f3d78b-9c30-4ff5-b097-5fb7283bafba/resourceGroups/VM_12773033/providers/Microsoft.ContainerRegistry/registries/myrefistry"}'
+        azureSubscription: 'Azure for Students(1)(eb76b2aa-fd5d-4aed-a836-a830c995d714)'
+        azureContainerRegistry: '{"loginServer":"godprojectregistry.azurecr.io", "id" : "/subscriptions/eb76b2aa-fd5d-4aed-a836-a830c995d714/resourceGroups/myPythonServer/providers/Microsoft.ContainerRegistry/registries/GodProjectRegistry"}'
         dockerComposeFile: 'python/docker-compose.yml'
         action: 'Run a Docker Compose command'
-        dockerComposeCommand: --env-file python/.env up -d --build
-        displayName: 'AZURE DOCKERCOMPOSE BUILD'
+        dockerComposeCommand: '--env-file python/.env up -d --build'
     #DockerImages
     - script: |
              docker images
@@ -38,6 +37,6 @@ stages:
     - task: AzureWebAppContainer@1
       displayName: 'AZURE WEB APP SERVICE BUILD'
       inputs:
-        azureSubscription: 'Azure subscription 1 (08f3d78b-9c30-4ff5-b097-5fb7283bafba)'
-        appName: 'testpython-1'
+        azureSubscription: 'Azure for Students(eb76b2aa-fd5d-4aed-a836-a830c995d714)'
+        appName: 'myPythonServer'
         containers: '$(REGISTRY_IMAGE)'

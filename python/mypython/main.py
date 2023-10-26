@@ -9,31 +9,7 @@ app = Flask(__name__)
 
 @app.route("/")   
 def index():
-    # 建立資料庫連接
-    db = pymysql.connect(
-      host='mytestsql.mysql.database.azure.com',
-      user='mypython',
-      password='Mark850409',
-      database='school',
-      ssl_disabled='True')
-    
-    cursor = db.cursor()
-
-    # 讀取資料
-    cursor.execute("SELECT * FROM student;")
-    rows = cursor.fetchall()
-    print("Read",cursor.rowcount,"row(s) of data.")
-
-    # 印出資料
-    for row in rows:
-      print(row)
-
-    # 釋放連線
-    db.commit()
-    cursor.close()
-    db.close()
-
-    return "Done"
+    return "Hello World 20231026"
 # 啟動CGI SERVER
 if __name__ == "__main__":
   CGIHandler().run(app)

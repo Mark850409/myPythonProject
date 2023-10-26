@@ -14,11 +14,7 @@ def index():
         config.read("my_config.ini")
          # 讀取資料庫變數
         username = config.get("DB", "username")
-        password = config.get("DB", "password")
-        db = config.get("DB", "db")
-        host = config.get("DB", "host")
-        ssl_disabled = config.getboolean("DB", "ssl_disabled")
-        print("Name:", username, "PW:", password, "db:", db)
+        print("Name:", username)
     except ConfigParser.NoOptionError as error:
            print(error)
     except ConfigParser.NoSectionError as error:

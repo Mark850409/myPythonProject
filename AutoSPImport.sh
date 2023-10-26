@@ -15,4 +15,4 @@ DB=stock
 SQL_NAME=procCreateTableSchema.sql
 #如果資料庫不存在就建立一個新的
 mysql -h $HOST -u $USER -p$PASSWORD -e "source $SQL_NAME;" -e "use $DB;"  && \
-mysql -h $HOST -u $USER -p$PASSWORD -e "use $DB;" -e 'call CreateStockTable();' 
+mysql -h $HOST -u $USER -p$PASSWORD -e "use $DB;" -e 'call procExportTableSchemaAndInsertTable();' 

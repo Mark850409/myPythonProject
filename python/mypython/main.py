@@ -12,14 +12,20 @@ app = Flask(__name__)
 config = configparser.ConfigParser()
 print("config:", config)
 config.read("my_config.ini")
-# 讀取資料庫變數
-username = config.get("DB", "username")
-password = config.get("DB", "password")
-db = config.get("DB", "db")
-host = config.get("DB", "host")
-ssl_disabled = config.getint("DB", "ssl_disabled") #轉換成int型態才不會出錯
 
-print("Name:", username, "PW:", password, "db:", db)
+# 讀取資料庫變數
+username = config['DB']['username']
+password = config['DB']['password']
+print(username)
+print(password)
+
+#username = config.get("DB", "username")
+#password = config.get("DB", "password")
+#db = config.get("DB", "db")
+#host = config.get("DB", "host")
+#ssl_disabled = config.getint("DB", "ssl_disabled") #轉換成int型態才不會出錯
+
+#print("Name:", username, "PW:", password, "db:", db)
 
 # 資料庫設定
 db_settings = {

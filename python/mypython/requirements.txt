@@ -1,0 +1,8 @@
+markdown==3.1.1
+mysql-connector-python==8.0.17
+protobuf==3.6.1
+Flask == 2.0.2
+Werkzeug==2.2.2
+pymysql==1.1.0
+flask-script==2.0.5
+waitress==2.1.2

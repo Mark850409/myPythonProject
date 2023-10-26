@@ -1,19 +1,43 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
+#git pipelines觸發
 trigger:
-- master
+- 'none'
 
-pool:
-  vmImage: ubuntu-latest
+#定義變數群組
+variables:
+  - group: Azure Registry Login
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+#腳本執行進入點
+stages:
+- stage: AzureWebAppServiceBuild
+  displayName: "AzureWebAppServiceBuild"
+  jobs:
+  - job: PythonImageBuild
+    displayName: "PythonImageBuild"
+    steps:   
+    #DockerCompose
+    - task: DockerCompose@0
+      inputs:
+        containerregistrytype: 'Azure Container Registry'
+        azureSubscription: 'Azure subscription 1 (08f3d78b-9c30-4ff5-b097-5fb7283bafba)'
+        azureContainerRegistry: '{"loginServer":"myrefistry.azurecr.io", "id" : "/subscriptions/08f3d78b-9c30-4ff5-b097-5fb7283bafba/resourceGroups/VM_12773033/providers/Microsoft.ContainerRegistry/registries/myrefistry"}'
+        dockerComposeFile: 'python/docker-compose.yml'
+        action: 'Run a Docker Compose command'
+        dockerComposeCommand: --env-file python/.env up -d --build
+        displayName: 'AZURE DOCKERCOMPOSE BUILD'
+    #DockerImages
+    - script: |
+             docker images
+      displayName: 'AZURE DOCKER IMAGE LIST'
+    #DockerBuildAndPush
+    - script: |
+             docker login $(REGISTRY_HOST) -u $(REGISTRY_USER) -p $(REGISTRY_PASSWORD)
+             docker tag mypythonweb:1.0 $(REGISTRY_IMAGE)
+             docker push $(REGISTRY_IMAGE)
+      displayName: 'AZURE DOCKER REGISTRY LOGIN AND PUSH IMAGE'
+    #AzureWebAppContainer
+    - task: AzureWebAppContainer@1
+      displayName: 'AZURE WEB APP SERVICE BUILD'
+      inputs:
+        azureSubscription: 'Azure subscription 1 (08f3d78b-9c30-4ff5-b097-5fb7283bafba)'
+        appName: 'testpython-1'
+        containers: '$(REGISTRY_IMAGE)'

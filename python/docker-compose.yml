@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  python:
+    build: ./mypython
+    container_name: mypythonweb
+    image: mypythonweb:${BUILD_NUMBER}
+    restart: always
+    ports:
+      - "${PYTHON_PORTS}:80"
+    volumes:
+      - $SourcesDirectory/etc/apache2:/etc/apache2/
+      - $SourcesDirectory/etc/letsencrypt/live/markweb.idv.tw:/etc/letsencrypt/live/markweb.idv.tw
+      - $SourcesDirectory/var/www/html:/var/www/html

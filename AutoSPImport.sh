@@ -8,12 +8,11 @@
 # Modify His  : 
 # ===================================================================
 #參數定義
-USER=mark
-PASSWORD=mark850409
-HOST=markweb.idv.tw
-PORT=8096
+USER=markhsu
+PASSWORD=Mypython_850409
+HOST=mysqlforpython.mysql.database.azure.com
 DB=stock
 SQL_NAME=procCreateTableSchema.sql
 #如果資料庫不存在就建立一個新的
-mysql -h $HOST -u $USER -p$PASSWORD -P $PORT -e "source $SQL_NAME;" -e "use $DB;"  && \
-mysql -h $HOST -u $USER -p$PASSWORD -P $PORT -e "use $DB;" -e 'call CreateStockTable();' 
+mysql -h $HOST -u $USER -p$PASSWORD -e "source $SQL_NAME;" -e "use $DB;"  && \
+mysql -h $HOST -u $USER -p$PASSWORD -e "use $DB;" -e 'call CreateStockTable();' 

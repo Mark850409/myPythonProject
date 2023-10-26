@@ -17,7 +17,7 @@ def index():
         password = config.get("DB", "password")
         db = config.get("DB", "db")
         host = config.get("DB", "host")
-        ssl_disabled = config.getint("DB", "ssl_disabled") #轉換成int型態才不會出錯
+        ssl_disabled = config.getboolean("DB", "ssl_disabled")
         print("Name:", username, "PW:", password, "db:", db)
     except ConfigParser.NoOptionError as error:
            print(error)

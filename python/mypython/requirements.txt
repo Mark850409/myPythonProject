@@ -6,3 +6,4 @@ Werkzeug==2.2.2
 pymysql==1.1.0
 flask-script==2.0.5
 waitress==2.1.2
+configparser==6.0.0

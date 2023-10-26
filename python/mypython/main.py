@@ -12,6 +12,9 @@ def index():
         # 取得資料庫設定檔
         config = configparser.ConfigParser()
         config.read("python/mypython/my_config.ini")
+         # 讀取資料庫變數
+        username = config.get('DB', 'username')
+        print(username)
     except ConfigParser.NoOptionError as error:
            print(error)
     except ConfigParser.NoSectionError as error:

@@ -19,7 +19,7 @@ stages:
       inputs:
         containerregistrytype: 'Azure Container Registry'
         azureSubscription: 'Azure for Students(1)(eb76b2aa-fd5d-4aed-a836-a830c995d714)'
-        azureContainerRegistry: '{"loginServer":"myrefistry.azurecr.io", "id" : "/subscriptions/08f3d78b-9c30-4ff5-b097-5fb7283bafba/resourceGroups/VM_12773033/providers/Microsoft.ContainerRegistry/registries/myrefistry"}'
+        azureContainerRegistry: '{"loginServer":"godprojectregistry.azurecr.io", "id" : "/subscriptions/eb76b2aa-fd5d-4aed-a836-a830c995d714/resourceGroups/myPythonServer/providers/Microsoft.ContainerRegistry/registries/GodProjectRegistry"}'
         dockerComposeFile: 'python/docker-compose.yml'
         action: 'Run a Docker Compose command'
         dockerComposeCommand: '--env-file python/.env up -d --build'

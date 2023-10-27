@@ -6,26 +6,24 @@ import os
 import configparser
 app = Flask(__name__)
 
-# 取得資料庫設定檔
-config = configparser.ConfigParser()
-config.read("my_config.ini")
 
-# 讀取資料庫變數
-global username, password, db,host,ssl_disabled
-username = config.get("DB", "username")
-password = config.get("DB", "password")
-db = config.get("DB", "db")
-host = config.get("DB", "host")
-ssl_disabled = 'True' 
 
 @app.route("/")   
 def index():
+     # 取得資料庫設定檔
+    config = configparser.ConfigParser()
+    config.read("my_config.ini")
+
+    # 讀取資料庫變數
+    global username, password,db,host,ssl_disabled,cursor
+    
+    
     # 建立資料庫連接
     db = pymysql.connect(
-      host= host,
-      user= username,
-      password= password,
-      database=db,
+      host= config.get("DB", "host"),
+      user= config.get("DB", "username"),
+      password= config.get("DB", "password"),
+      database=config.get("DB", "db"),
       ssl_disabled='True')
     
     cursor = db.cursor()

@@ -23,7 +23,7 @@ def index():
     cursor = db.cursor()
 
     # 讀取資料
-    cursor.execute("SELECT * FROM stock_list;")
+    cursor.execute("SELECT * FROM stock_list limit 5;")
     rows = cursor.fetchall()
     print("Read",cursor.rowcount,"row(s) of data.")
 

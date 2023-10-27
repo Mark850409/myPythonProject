@@ -13,7 +13,7 @@ def index():
         config = configparser.ConfigParser()
         config.read("python/mypython/my_config.ini")
          # 讀取資料庫變數
-        username = config.get('DB', 'username')
+        username = config['DB']['username']
         print(username)
     except ConfigParser.NoOptionError as error:
            print(error)

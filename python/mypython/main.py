@@ -21,11 +21,11 @@ def index():
     password = config.get("DB", "password")
     db = config.get("DB", "db")
     host = config.get("DB", "host")
-    port = config.getint("DB", "port") #轉換成int型態才不會出錯
+    ssl_disabled = "True"
     # 資料庫設定
     db_settings = {
         "host": host,
-        "port": port,
+        "ssl_disabled": "True",
         "user": username,
         "password": password,
         "db": db,

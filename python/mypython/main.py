@@ -21,10 +21,10 @@ def index():
         # 連接 MySQL/MariaDB 資料庫
           # 建立資料庫連接
         db = pymysql.connect(
-          host= config.get("DB", "host"),
-          user= config.get("DB", "username"),
-          password= config.get("DB", "password"),
-          database= config.get("DB", "db"),
+          host= 'mysqlforpython.mysql.database.azure.com',
+          user= 'markhsu',
+          password= 'Mypython_850409',
+          database= 'stock',
           ssl_disabled='True')
           
         if db.open:

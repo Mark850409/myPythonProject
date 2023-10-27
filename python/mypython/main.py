@@ -3,6 +3,7 @@ from wsgiref.handlers import CGIHandler
 from flask import Flask
 import pymysql
 import os
+import sys
 import configparser
 app = Flask(__name__)
 
@@ -10,22 +11,25 @@ app = Flask(__name__)
 
 @app.route("/")   
 def index():
-     # 取得資料庫設定檔
-    config = configparser.ConfigParser()
-    config.read("my_config.ini")
-    config.add_section('section_b')
-    config.set('section_b', 'meal_val', 'spam')
-    config.set('section_b', 'not_found_val', '404')
 
-    # save to a file
-    with open('my_config.ini', 'w') as configfile:
-        config.write(configfile)
-    print(configfile)
+    auth_ticket = sys.argv[1]
+    print(auth_ticket)
+     # # 取得資料庫設定檔
+    # config = configparser.ConfigParser()
+    # config.read("my_config.ini")
+    # config.add_section('section_b')
+    # config.set('section_b', 'meal_val', 'spam')
+    # config.set('section_b', 'not_found_val', '404')
+
+    # # save to a file
+    # with open('my_config.ini', 'w') as configfile:
+        # config.write(configfile)
+    # print(configfile)
     
-    meal_val = config.get("section_b", "meal_val")
-    not_found_val = config.get("section_b", "not_found_val")
-    print(meal_val)
-    print(not_found_val)
+    # meal_val = config.get("section_b", "meal_val")
+    # not_found_val = config.get("section_b", "not_found_val")
+    # print(meal_val)
+    # print(not_found_val)
     # # 建立資料庫連接
     # db = pymysql.connect(
       # host= config.get("DB", "host"),

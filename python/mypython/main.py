@@ -20,7 +20,12 @@ def index():
     # save to a file
     with open('my_config.ini', 'w') as configfile:
         config.write(configfile)
+    print(configfile)
     
+    meal_val = config.get("section_b", "meal_val")
+    not_found_val = config.get("section_b", "not_found_val")
+    print(meal_val)
+    print(not_found_val)
     # # 建立資料庫連接
     # db = pymysql.connect(
       # host= config.get("DB", "host"),

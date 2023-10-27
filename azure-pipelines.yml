@@ -33,6 +33,13 @@ stages:
              docker tag mypythonweb:1.0 $(REGISTRY_IMAGE)
              docker push $(REGISTRY_IMAGE)
       displayName: 'AZURE DOCKER REGISTRY LOGIN AND PUSH IMAGE'
+    
+    #CALL STORE PROCEDURE TO CREATE DB AND INSERT DATA
+    - task: ShellScript@2
+      displayName: 'CALL SP TO CREATE DB AND INSERT DATA'
+      inputs:
+        scriptPath: 'AutoSPImport.sh'
+
     #AzureWebAppContainer
     - task: AzureWebAppContainer@1
       displayName: 'AZURE WEB APP SERVICE BUILD'
@@ -40,8 +47,3 @@ stages:
         azureSubscription: 'Azure for Students(eb76b2aa-fd5d-4aed-a836-a830c995d714)'
         appName: 'myPythonServer'
         containers: '$(REGISTRY_IMAGE)'
-    #CALL STORE PROCEDURE TO CREATE DB AND INSERT DATA
-    - task: ShellScript@2
-      displayName: 'CALL SP TO CREATE DB AND INSERT DATA'
-      inputs:
-        scriptPath: 'AutoSPImport.sh'

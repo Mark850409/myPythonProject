@@ -12,9 +12,6 @@ def index():
         # 取得資料庫設定檔
         config = configparser.ConfigParser()
         config.read("python/mypython/my_config.ini")
-         # 讀取資料庫變數
-        username = config['DB']['username']
-        print(username)
     except ConfigParser.NoOptionError as error:
            print(error)
     except ConfigParser.NoSectionError as error:
@@ -22,7 +19,10 @@ def index():
     except Exception as error:
            print(error)
     finally:
-           print("沒有任何錯誤，可以進行資料庫查詢了!!!")
+        # 讀取資料庫變數
+        username = config['DB']['username']
+        print(username)
+        print("沒有任何錯誤，可以進行資料庫查詢了!!!")
 
 
     # # 建立資料庫連接

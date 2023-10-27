@@ -10,33 +10,45 @@ app = Flask(__name__)
 
 @app.route("/")   
 def index():
-    # 取得資料庫設定檔
-
     # 宣告全域變數
     global result, connection, cursor
-
-    # 資料庫設定
-    db_settings = {
-        "host": "mysqlforpython.mysql.database.azure.com",
-        "ssl_disabled": "True",
-        "user": "markhsu",
-        "password": "Mypython_850409",
-        "db": "stock",
-        "charset": "utf8"
-    }
+       
+     # 取得資料庫設定檔
+    config = configparser.ConfigParser()
+    config.read("my_config.ini")
 
     try:
         # 連接 MySQL/MariaDB 資料庫
-        connection = pymysql.connect(**db_settings)  # 密碼
-        cursor = connection.cursor()
-        if connection.open:
+          # 建立資料庫連接
+        db = pymysql.connect(
+          host= config.get("DB", "host"),
+          user= config.get("DB", "username"),
+          password= config.get("DB", "password"),
+          database= config.get("DB", "db"),
+          ssl_disabled='True')
+          
+        if db.open:
            print("資料庫連接成功!!!")
+        
+        cursor = db.cursor()
+
+        # 讀取資料
+        cursor.execute("SELECT * FROM stock_list;")
+        rows = cursor.fetchall()
+        print("Read",cursor.rowcount,"row(s) of data.")
+
+        # 印出資料
+        for row in rows:
+          print(row)
+          
+        db.commit()
+
     except Error as e:
            print("資料庫連接失敗!!!", e)
     finally:
-        if connection.open:
+        if db.open:
            cursor.close()
-           connection.close()
+           db.close()
 
     return "Success"
 # 啟動CGI SERVER

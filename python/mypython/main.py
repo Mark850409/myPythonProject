@@ -17,18 +17,18 @@ def index():
     # 宣告全域變數
     global result, connection, cursor
     # 讀取資料庫變數
-    username = config.get("DB", "username")
-    password = config.get("DB", "password")
-    db = config.get("DB", "db")
-    host = config.get("DB", "host")
-    ssl_disabled = "True"
+    #username = config.get("DB", "username")
+   # password = config.get("DB", "password")
+   # db = config.get("DB", "db")
+    #host = config.get("DB", "host")
+    #ssl_disabled = "True"
     # 資料庫設定
     db_settings = {
-        "host": host,
+        "host": "mysqlforpython.mysql.database.azure.com",
         "ssl_disabled": "True",
-        "user": username,
-        "password": password,
-        "db": db,
+        "user": "markhsu",
+        "password": "Mypython_850409",
+        "db": "stock",
         "charset": "utf8"
     }
 

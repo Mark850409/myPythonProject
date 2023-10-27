@@ -11,17 +11,10 @@ app = Flask(__name__)
 @app.route("/")   
 def index():
     # 取得資料庫設定檔
-    config = configparser.ConfigParser()
-    config.read("my_config.ini")
 
     # 宣告全域變數
     global result, connection, cursor
-    # 讀取資料庫變數
-    #username = config.get("DB", "username")
-   # password = config.get("DB", "password")
-   # db = config.get("DB", "db")
-    #host = config.get("DB", "host")
-    #ssl_disabled = "True"
+
     # 資料庫設定
     db_settings = {
         "host": "mysqlforpython.mysql.database.azure.com",

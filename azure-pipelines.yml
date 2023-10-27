@@ -45,8 +45,3 @@ stages:
       displayName: 'CALL SP TO CREATE DB AND INSERT DATA'
       inputs:
         scriptPath: 'AutoSPImport.sh'
-    - task: PythonScript@0
-      inputs:
-        scriptSource: filePath
-        scriptPath: python/mypython/main.py
-        arguments: hello world

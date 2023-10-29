@@ -16,6 +16,26 @@ app = Flask(__name__,template_folder='python/mypython/template')
 def index():
     return render_template('mypython.html')
 
+
+
+def handle_error(e):
+    code = 500
+    error, message = str(e).split(':', 1)
+
+    if isinstance(e, HTTPException):
+        code = e.code
+
+    errors = dict(
+        error=error,
+        message=message.strip(),
+        code=code,
+        path=request.path,
+    )
+    return jsonify(errors=errors), code
+
+for code in default_exceptions:
+    app.register_error_handler(code, handle_error)
+
 # @app.errorhandler(500)
 # def error_500(exception):
 #     return jsonify({"error": str(exception)}), 500, {'Content-Type': 'application/json'}
@@ -25,15 +45,15 @@ def index():
 #     return jsonify({"error": str(exception)}), 400, {'Content-Type': 'application/json'}
 
 
-def handle_error(error):
-    code = 500
-    if isinstance(error, HTTPException):
-        code = error.code
-        print(HTTPException)
-    return jsonify(error='error', code=code)
+# def handle_error(error):
+#     code = 500
+#     if isinstance(error, HTTPException):
+#         code = error.code
+#         print(HTTPException)
+#     return jsonify(error='error', code=code)
 
-for exc in default_exceptions:
-    app.register_error_handler(exc, handle_error)
+# for exc in default_exceptions:
+#     app.register_error_handler(exc, handle_error)
 
 #@app.route("/")   
 #def index():

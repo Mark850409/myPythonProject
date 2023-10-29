@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 from wsgiref.handlers import CGIHandler
 from functools import wraps
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, abort, jsonify, json
 import pymysql
 import os
 import sys
@@ -13,9 +13,17 @@ from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__,template_folder='python/mypython/template')
 
-@app.route('/', methods=['GET'])
+@app.route('/')
 def index():
     return render_template('mypython.html')
+
+@app.errorhandler(500)
+def error_500(exception):
+    return jsonify({"error": str(exception)}), 500, {'Content-Type': 'application/json'}
+
+@app.errorhandler(400)
+def error_400(exception):
+    return jsonify({"error": str(exception)}), 400, {'Content-Type': 'application/json'}
 
 #@app.route("/")   
 #def index():

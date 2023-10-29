@@ -86,5 +86,6 @@ for code in default_exceptions:
     
 # 啟動CGI SERVER
 if __name__ == "__main__":
-  CGIHandler().run(app)
+  #CGIHandler().run(app)
+  app.run(debug=True)
   #app.handle_http_exception = get_http_exception_handler(app)

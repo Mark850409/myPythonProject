@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from wsgiref.handlers import CGIHandler
-from flask import Flask
+from functools import wraps
+from flask import Flask, redirect, jsonify
 from flask import render_template
 import pymysql
 import os
@@ -16,14 +17,15 @@ from werkzeug.exceptions import HTTPException
 app = Flask(__name__,template_folder='python/mypython/template')
 
 
-@app.errorhandler(Exception)
-def handle_exception(e):
-    # pass through HTTP errors
-    if isinstance(e, HTTPException):
-        return e
 
-    # now you're handling non-HTTP exceptions only
-    return render_template("500_generic.html", e=e), 500
+def get_http_exception_handler(app):
+    """Overrides the default http exception handler to return JSON."""
+    handle_http_exception = app.handle_http_exception
+    @wraps(handle_http_exception)
+    def ret_val(exception):
+        exc = handle_http_exception(exception)    
+        return jsonify({'code':exc.code, 'message':exc.description}), exc.code
+    return ret_val
 
 
 
@@ -59,4 +61,4 @@ def index():
 # 啟動CGI SERVER
 if __name__ == "__main__":
   #CGIHandler().run(app)
-  app.run()
+  app.handle_http_exception = get_http_exception_handler(app)

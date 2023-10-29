@@ -29,6 +29,7 @@ def handle_error(error):
     code = 500
     if isinstance(error, HTTPException):
         code = error.code
+        print(HTTPException)
     return jsonify(error='error', code=code)
 
 for exc in default_exceptions:

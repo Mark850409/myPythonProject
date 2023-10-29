@@ -6,7 +6,7 @@ import pymysql
 import os
 import sys
 import configparser
-app = Flask(__name__)
+app = Flask(__name__,template_folder='template')
 
 
 
@@ -37,7 +37,7 @@ def index():
 #     cursor.close()
 #     db.close()
 
-    return "helloworld"
+    return render_template('mypython.html')
     
 # 啟動CGI SERVER
 if __name__ == "__main__":

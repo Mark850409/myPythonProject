@@ -17,7 +17,7 @@ def index():
     return "hello world"
 
 @app.route('/hello')
-def index():
+def index2():
     return render_template('mypython.html')
 
 

@@ -37,7 +37,7 @@ def index():
 #     cursor.close()
 #     db.close()
 
-    return render_template('python/mypython/template/mypython.html')
+    return "helloworld"
     
 # 啟動CGI SERVER
 if __name__ == "__main__":

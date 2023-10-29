@@ -8,8 +8,7 @@ import sys
 import configparser
 import traceback
 import sys
-from werkzeug.exceptions import HTTPException
-
+from werkzeug.exceptions import HTTPException, default_exceptions
 
 app = Flask(__name__,template_folder='python/mypython/template')
 
@@ -17,13 +16,23 @@ app = Flask(__name__,template_folder='python/mypython/template')
 def index():
     return render_template('mypython.html')
 
-@app.errorhandler(500)
-def error_500(exception):
-    return jsonify({"error": str(exception)}), 500, {'Content-Type': 'application/json'}
+# @app.errorhandler(500)
+# def error_500(exception):
+#     return jsonify({"error": str(exception)}), 500, {'Content-Type': 'application/json'}
 
-@app.errorhandler(400)
-def error_400(exception):
-    return jsonify({"error": str(exception)}), 400, {'Content-Type': 'application/json'}
+# @app.errorhandler(400)
+# def error_400(exception):
+#     return jsonify({"error": str(exception)}), 400, {'Content-Type': 'application/json'}
+
+
+def handle_error(error):
+    code = 500
+    if isinstance(error, HTTPException):
+        code = error.code
+    return jsonify(error='error', code=code)
+
+for exc in default_exceptions:
+    app.register_error_handler(exc, handle_error)
 
 #@app.route("/")   
 #def index():

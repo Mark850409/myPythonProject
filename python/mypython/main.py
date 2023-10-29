@@ -21,23 +21,23 @@ def index():
     return render_template('mypython.html')
 
 
-def handle_error(e):
-    code = 500
-    error, message = str(e).split(':', 1)
+# def handle_error(e):
+#     code = 500
+#     error, message = str(e).split(':', 1)
 
-    if isinstance(e, HTTPException):
-        code = e.code
+#     if isinstance(e, HTTPException):
+#         code = e.code
 
-    errors = dict(
-        error=error,
-        message=message.strip(),
-        code=code,
-        path=request.path,
-    )
-    return jsonify(errors=errors), code
+#     errors = dict(
+#         error=error,
+#         message=message.strip(),
+#         code=code,
+#         path=request.path,
+#     )
+#     return jsonify(errors=errors), code
 
-for code in default_exceptions:
-    app.register_error_handler(code, handle_error)
+# for code in default_exceptions:
+#     app.register_error_handler(code, handle_error)
 
 # @app.errorhandler(500)
 # def error_500(exception):

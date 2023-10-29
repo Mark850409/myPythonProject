@@ -8,3 +8,4 @@ flask-script==2.0.5
 waitress==2.1.2
 configparser==6.0.0
 template-render == 0.1.0
+Jinja2 == 3.1.2

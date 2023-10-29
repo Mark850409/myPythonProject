@@ -93,6 +93,6 @@ def index():
     
 # 啟動CGI SERVER
 if __name__ == "__main__":
-  #CGIHandler().run(app)
-  app.run(host='127.0.0.1', port=8080, debug=True)
+  CGIHandler().run(app)
+  #app.run(host='127.0.0.1', port=8080, debug=True)
   #app.handle_http_exception = get_http_exception_handler(app)

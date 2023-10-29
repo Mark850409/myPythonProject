@@ -14,8 +14,11 @@ app = Flask(__name__,template_folder='python/mypython/template')
 
 @app.route('/')
 def index():
-    return render_template('mypython.html')
+    return "hello world"
 
+@app.route('/hello')
+def index():
+    return render_template('mypython.html')
 
 
 def handle_error(e):

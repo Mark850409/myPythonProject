@@ -10,11 +10,11 @@ import traceback
 import sys
 from werkzeug.exceptions import HTTPException, default_exceptions
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder = 'templates')
 
 @app.route('/')
 def index():
-    return render_template("templates/mypython.html")
+    return render_template("index.html")
 
 # def handle_error(e):
 #     code = 500

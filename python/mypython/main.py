@@ -9,7 +9,12 @@ import configparser
 import traceback
 import sys
 
-def abort_msg(e):
+app = Flask(__name__,template_folder='python/mypython/template')
+
+
+
+@app.route("/")   
+def index():
     """500 bad request for exception
 
     Returns:
@@ -26,14 +31,6 @@ def abort_msg(e):
     errMsg = "Exception raise in file: {}, line {}, in {}: [{}] {}. Please contact the member who is the person in charge of project!".format(fileName, lineNum, funcName, error_class, detail)
     # return 500 code
     abort(500, errMsg)
-
-app = Flask(__name__,template_folder='python/mypython/template')
-
-
-
-@app.route("/")   
-def index():
-
 #  # 建立資料庫連接
 #     db = pymysql.connect(
 #       host='mysqlforpython.mysql.database.azure.com',

@@ -85,6 +85,5 @@ def index():
 # 啟動CGI SERVER
 if __name__ == "__main__":
   #CGIHandler().run(app)
-  from waitress import serve
-  serve(app, host="0.0.0.0", port=8080)
+  app.run(host='127.0.0.1', port=8080, debug=True)
   #app.handle_http_exception = get_http_exception_handler(app)

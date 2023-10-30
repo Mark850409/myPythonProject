@@ -14,7 +14,7 @@
     </nav>
 
     <div class="container py-3">
-        <table class="table">
+        <table class="table" id="Back">
             <thead>
               <tr>
                 <th scope="col">項目</th>
@@ -34,16 +34,16 @@
             </tbody>
         </table>
 
-        {% for i in range(rows2) %}
-            {% if rows2.TABLE_TYPE=="每日收盤資訊"%}
-                <table class="table">
+        {% for row in rows2 %}
+            {% if row.TABLE_TYPE=="每日收盤資訊"%}
+                <table class="table" id="stock_daily">
                     <tbody>
                         <tr bgcolor="#FFFF93">
                             <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：{{row.TABLE_TYPE}}</a>   <a href="#Back">Back </a></td>
                         </tr>
                 
                         <tr>
-                            <td>{{i}}</td>
+                            <td>abc</td>
                             <td>{{row.COLUMN_NAMES}}</td>
                             <td>{{row.DATA_TYPE}}</td>
                             <td>{{row.IS_NULLABLE}}</td>

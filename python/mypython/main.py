@@ -31,6 +31,7 @@ def index():
       ssl_disabled='True')
     
     cursor = db.cursor()
+    cursor2 = db.cursor()
 
     # 讀取資料
     cursor.execute("""SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
@@ -45,6 +46,12 @@ def index():
             WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data';
            """)
     rows = cursor.fetchall()
+
+
+
+    # 讀取資料
+    cursor2.execute("SELECT * FROM stock.stock_all_data;")
+    rows2 = cursor2.fetchall()
     #print("Read",cursor.rowcount,"row(s) of data.")
 
     # 印出資料
@@ -56,7 +63,7 @@ def index():
     cursor.close()
     db.close()
     
-    return render_template("index.html",rows=rows)
+    return render_template("index.html",rows=rows,rows2=rows2)
 
     
 # 啟動CGI SERVER

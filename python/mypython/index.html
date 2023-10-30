@@ -32,7 +32,37 @@
             {% endfor %}
               
             </tbody>
-          </table>
+        </table>
+
+        {% for i in range(rows2) %}
+        {% if rows2.TABLE_TYPE=="每日收盤資訊"%}
+        <table class="table">
+            <tbody>
+                <tr bgcolor="#FFFF93">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：{{row.TABLE_TYPE}}</a>   <a href="#Back">Back </a></td>
+                </tr>
+          
+                <tr>
+                    <td>{{i}}</td>
+                    <td><a href=#{{row[1]}}>{{row.COLUMN_NAMES}}</a></td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+            {% endfor %}
+              
+            </tbody>
+        </table>
+       
+        {% else %}
+            <br>
+            <br>
+            <h3>Hello world</h3>
+        {% endif %}
+
+        {% endfor %}
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>

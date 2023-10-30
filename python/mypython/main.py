@@ -15,7 +15,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read('my_config.ini')
     username = config['DB']['username']
     db = config['DB']['db']
     host = config['DB']['host']

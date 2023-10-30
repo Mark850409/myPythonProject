@@ -1,67 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>資料檔案清單（DTL_Data Table List）</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <title>stock-資料檔案清單（DTL_Data Table List）</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
+
 <body>
-    <!-- As a heading -->
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1">資料檔案清單（DTL_Data Table List）</span>
+    <nav class="navbar navbar-light bg-light ">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-brand mb-0 h3 text-center">stock-資料檔案清單（DTL_Data Table List）</span>
         </div>
     </nav>
 
     <div class="container py-3">
-        <table class="table" id="Back">
-            <thead>
-              <tr>
-                <th scope="col">項目</th>
-                <th scope="col">資料表名稱</th>
-                <th scope="col">說明</th>
-              </tr>
+        <table class="table table-striped table-bordered table-hover" id="Back">
+            <thead class="table-warning">
+                <tr>
+                    <th scope="col">資料表項目</th>
+                    <th scope="col">資料表名稱</th>
+                    <th scope="col">資料表說明</th>
+                </tr>
             </thead>
             <tbody>
-            {% for row in rows %}
+                {% for row in stock_all_datas %}
                 <tr>
-                    <td>{{row[0]}}</td>
+                    <td>{{ loop.index }}</td>
                     <td><a href=#{{row[1]}}>{{row[1]}}</a></td>
                     <td>{{row[2]}}</td>
                 </tr>
-            {% endfor %}
-              
+                {% endfor %}
+
             </tbody>
         </table>
 
-        {% for row in rows2 %}
-            {% if row.TABLE_TYPE=="每日收盤資訊"%}
-                <table class="table" id="stock_daily">
-                    <tbody>
-                        <tr bgcolor="#FFFF93">
-                            <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：{{row.TABLE_TYPE}}</a>   <a href="#Back">Back </a></td>
-                        </tr>
+       
+        <table class="table table-striped table-bordered" id="stock_daily">
+            <thead>
+                <tr class="table-warning">
+                    <td colspan="6"> <a>資料表名稱：每日收盤資訊</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+            </thead>
+            <tbody>
                 
-                        <tr>
-                            <td>abc</td>
-                            <td>{{row.COLUMN_NAMES}}</td>
-                            <td>{{row.DATA_TYPE}}</td>
-                            <td>{{row.IS_NULLABLE}}</td>
-                            <td>{{row.COLUMN_KEY}}</td>
-                            <td>{{row.DESCS}}</td>
-                        </tr>             
-                    </tbody>
-                </table>
-            {% else %}
-                    <br>
-                    <br>
-                    <h3>Hello world</h3>
-            {% endif %}
-        {% endfor %}
+                {% for row in stock_daily_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
+        <table class="table table-striped table-bordered" id="stock_daily_3">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：每月營收</a> <a href="#Back">Back </a></td>
+                </tr>
+                {% for row in stock_daily_3_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+        <table class="table table-striped table-bordered" id="stock_daily_mr">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：三大法人進出</a> <a href="#Back">Back </a></td>
+                </tr>
+                {% for row in stock_daily_mr_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_daily_mt">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：主力進出</a> <a href="#Back">Back </a></td>
+                </tr>
+                {% for row in stock_daily_mt_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_list">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：證券清冊</a> <a href="#Back">Back </a></td>
+                </tr>
+                {% for row in stock_list_all %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_monthly_revenue">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：融資融券</a> <a href="#Back">Back </a></td>
+                </tr>
+                {% for row in stock_monthly_revenue_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>      
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

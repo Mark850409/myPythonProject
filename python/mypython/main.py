@@ -33,7 +33,17 @@ def index():
     cursor = db.cursor()
 
     # 讀取資料
-    cursor.execute("SELECT * FROM stock_list limit 5;")
+    cursor.execute("""\SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
+			WHEN 'stock_daily' THEN '每日收盤資訊' 
+            WHEN 'stock_daily_3' THEN '每月營收' 
+            WHEN 'stock_daily_mr' THEN '三大法人進出' 
+            WHEN 'stock_daily_mt' THEN '主力進出' 
+            WHEN 'stock_list' THEN '證券清冊' 
+            WHEN 'stock_monthly_revenue' THEN '融資融券' 
+			END) as table_desc 
+            FROM information_schema.tables t ,(select @i:=0) as i                                                                                                                                
+            WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data';
+           """)
     rows = cursor.fetchall()
     #print("Read",cursor.rowcount,"row(s) of data.")
 

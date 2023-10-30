@@ -20,8 +20,8 @@ COPY apache/apache2.conf /etc/apache2/
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/ports.conf /etc/apache2/
 COPY main.py /var/www/html
+COPY my_config.ini /var/www/html
 COPY index.html /var/www/html/templates
 COPY DigiCertGlobalRootCA.crt.pem /var/www/html
 RUN chmod +X main.py && chmod 755 main.py 
 EXPOSE 80
-#CMD ["python3", "main.py"]

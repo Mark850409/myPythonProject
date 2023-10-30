@@ -19,35 +19,34 @@ def index():
     username = config['DB']['username']
     db = config['DB']['db']
     host = config['DB']['host']
-    print("user:",username,"db:",db,"host:",host)
-    return render_template("index.html")
-
-# @app.route("/")   
-# def index():
-
- # # 建立資料庫連接
-    # db = pymysql.connect(
-      # host='mysqlforpython.mysql.database.azure.com',
-      # user='markhsu',
-      # password='Mypython_850409',
-      # database='stock',
-      # ssl_disabled='True')
+    pw = config['DB']['password']
+    # print("user:",username,"db:",db,"host:",host)
     
-    # cursor = db.cursor()
+     # 建立資料庫連接
+    db = pymysql.connect(
+      host= host,
+      user= username,
+      password= pw,
+      database= db,
+      ssl_disabled='True')
+    
+    cursor = db.cursor()
 
-    # # 讀取資料
-    # cursor.execute("SELECT * FROM stock_list limit 5;")
-    # rows = cursor.fetchall()
-    # print("Read",cursor.rowcount,"row(s) of data.")
+    # 讀取資料
+    cursor.execute("SELECT * FROM stock_list limit 5;")
+    rows = cursor.fetchall()
+    #print("Read",cursor.rowcount,"row(s) of data.")
 
-    # # 印出資料
-    # for row in rows:
-      # print(row)
+    # 印出資料
+    #for row in rows:
+     # print(row)
 
-    # # 釋放連線
-    # db.commit()
-    # cursor.close()
-    # db.close()
+    # 釋放連線
+    db.commit()
+    cursor.close()
+    db.close()
+    
+    return render_template("index.html",rows=rows)
 
     
 # 啟動CGI SERVER

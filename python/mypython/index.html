@@ -35,32 +35,28 @@
         </table>
 
         {% for i in range(rows2) %}
-        {% if rows2.TABLE_TYPE=="每日收盤資訊"%}
-        <table class="table">
-            <tbody>
-                <tr bgcolor="#FFFF93">
-                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：{{row.TABLE_TYPE}}</a>   <a href="#Back">Back </a></td>
-                </tr>
-          
-                <tr>
-                    <td>{{i}}</td>
-                    <td><a href=#{{row[1]}}>{{row.COLUMN_NAMES}}</a></td>
-                    <td>{{row.DATA_TYPE}}</td>
-                    <td>{{row.IS_NULLABLE}}</td>
-                    <td>{{row.COLUMN_KEY}}</td>
-                    <td>{{row.DESCS}}</td>
-                </tr>
-            {% endfor %}
-              
-            </tbody>
-        </table>
-       
-        {% else %}
-            <br>
-            <br>
-            <h3>Hello world</h3>
-        {% endif %}
-
+            {% if rows2.TABLE_TYPE=="每日收盤資訊"%}
+                <table class="table">
+                    <tbody>
+                        <tr bgcolor="#FFFF93">
+                            <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：{{row.TABLE_TYPE}}</a>   <a href="#Back">Back </a></td>
+                        </tr>
+                
+                        <tr>
+                            <td>{{i}}</td>
+                            <td>{{row.COLUMN_NAMES}}</td>
+                            <td>{{row.DATA_TYPE}}</td>
+                            <td>{{row.IS_NULLABLE}}</td>
+                            <td>{{row.COLUMN_KEY}}</td>
+                            <td>{{row.DESCS}}</td>
+                        </tr>             
+                    </tbody>
+                </table>
+            {% else %}
+                    <br>
+                    <br>
+                    <h3>Hello world</h3>
+            {% endif %}
         {% endfor %}
 
     </div>

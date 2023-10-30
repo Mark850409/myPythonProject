@@ -14,7 +14,7 @@ app = Flask('python/mypython')
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("python/mypython/templates/index.html")
 
 # def handle_error(e):
 #     code = 500

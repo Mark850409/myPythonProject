@@ -10,7 +10,7 @@ import traceback
 import sys
 from werkzeug.exceptions import HTTPException, default_exceptions
 
-app = Flask(__name__,template_folder = 'templates')
+app = Flask('python/mypython')
 
 @app.route('/')
 def index():
@@ -84,6 +84,6 @@ def index():
     
 # 啟動CGI SERVER
 if __name__ == "__main__":
-  CGIHandler().run(app)
-  #app.run(host='127.0.0.1', port=8080, debug=True)
+  #CGIHandler().run(app)
+  app.run(debug=True)
   #app.handle_http_exception = get_http_exception_handler(app)

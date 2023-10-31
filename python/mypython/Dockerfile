@@ -14,7 +14,8 @@ RUN apt-get -y update \
 && apt-get install -y --no-install-recommends \
 && python3 -m pip install --upgrade pip \ 
 && pip install --no-cache-dir -r requirements.txt \
-&& mkdir -p /var/www/html/templates
+&& mkdir -p /var/www/html/templates \
+&& apt-get install -y openssh-server
 COPY letsencrypt /etc/letsencrypt/
 COPY apache/apache2.conf /etc/apache2/
 COPY apache/000-default.conf /etc/apache2/sites-available/
@@ -24,4 +25,4 @@ COPY my_config.ini /var/www/html
 COPY index.html /var/www/html/templates
 COPY DigiCertGlobalRootCA.crt.pem /var/www/html
 RUN chmod +X main.py && chmod 755 main.py 
-EXPOSE 80 22
+EXPOSE 80 22 2222

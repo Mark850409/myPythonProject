@@ -6,6 +6,7 @@
 -- Parameter   : DBName
 -- Modify His  : 
 -- (1) 2023-10-26 : Mark    : CREATE 
+-- (2) 2023-10-31 : Mark    :更新stock_daily的PK欄位
 -- ===================================================================
 
 -- 如果stock資料庫不存在就建立一個新的
@@ -53,8 +54,10 @@ BEGIN
 			lb_amt decimal(18, 2),
 			ls_price decimal(18, 2),
 			ls_amt decimal(18, 2),
-			PE decimal(18, 2)
+			PE decimal(18, 2),
+            CONSTRAINT PK_stock_daily PRIMARY KEY (id,sdate)
 		);
+
         
 		DROP TABLE IF EXISTS stock_list;
 		CREATE TABLE IF NOT EXISTS stock_list
@@ -1392,7 +1395,7 @@ BEGIN
    			    EXECUTE stmt4; 
             
             -- 這一段供測試用
-			-- SELECT @join_table;
+			 -- SELECT @join_table;
          
          -- 迴圈結束
         END LOOP;                                                                                                                                                               

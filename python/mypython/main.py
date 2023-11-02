@@ -40,11 +40,11 @@ def index():
     # 讀取總表
     cursor.execute("""SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
 			WHEN 'stock_daily' THEN '每日收盤資訊' 
-            WHEN 'stock_daily_3' THEN '每月營收' 
-            WHEN 'stock_daily_mr' THEN '三大法人進出' 
-            WHEN 'stock_daily_mt' THEN '主力進出' 
+            WHEN 'stock_daily_3' THEN '三大法人進出' 
+            WHEN 'stock_daily_mr' THEN '主力進出' 
+            WHEN 'stock_daily_mt' THEN '融資融券' 
             WHEN 'stock_list' THEN '證券清冊' 
-            WHEN 'stock_monthly_revenue' THEN '融資融券' 
+            WHEN 'stock_monthly_revenue' THEN '每月營收' 
 			END) as table_desc 
             FROM information_schema.tables t ,(select @i:=0) as i
             WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data';
@@ -68,8 +68,8 @@ def index():
         stock_daily_list.append(d)
 
 
-    # 讀取每月營收資料
-    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='每月營收'")
+    # 讀取三大法人進出資料
+    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='三大法人進出'")
     stock_daily_3 = cursor.fetchall()
     stock_daily_3_list = []
     for row in stock_daily_3 :
@@ -83,8 +83,8 @@ def index():
         stock_daily_3_list.append(d)
 
 
-    #讀取三大法人進出資料
-    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='三大法人進出'")
+    #讀取主力進出資料
+    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='主力進出'")
     stock_daily_mr = cursor.fetchall()
     stock_daily_mr_list = []
     for row in stock_daily_mr :
@@ -98,8 +98,8 @@ def index():
         stock_daily_mr_list.append(d)
 
 
-    # 讀取主力進出資料
-    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='主力進出'")
+    # 讀取融資融券資料
+    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='融資融券'")
     stock_daily_mt = cursor.fetchall()
     stock_daily_mt_list = []
     for row in stock_daily_mt :
@@ -128,8 +128,8 @@ def index():
         stock_list_all.append(d)
 
 
-    # 讀取融資融券資料
-    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='融資融券'")
+    # 讀取每月營收資料
+    cursor.execute("SELECT * FROM stock.stock_all_data where TABLE_TYPE='每月營收'")
     stock_monthly_revenue = cursor.fetchall()
     stock_monthly_revenue_list = []
     for row in stock_monthly_revenue :

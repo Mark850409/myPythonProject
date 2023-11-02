@@ -10,7 +10,7 @@
 #參數定義
 USER=markhsu
 PASSWORD=Mypython_850409
-HOST=mysqlforpython.mysql.database.azure.com
+HOST=mysqlforpython1102.mysql.database.azure.com
 DB=stock
 SQL_NAME=procCreateTableSchema.sql
 #如果資料庫不存在就建立一個新的

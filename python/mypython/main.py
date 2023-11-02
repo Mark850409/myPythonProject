@@ -13,6 +13,12 @@ import collections
 
 app = Flask(__name__)
 
+
+
+# 資料庫首頁
+@app.route('/')
+def index():
+
     # 讀取ini設定檔
     config = configparser.ConfigParser()
     config.read('my_config.ini')
@@ -31,10 +37,6 @@ app = Flask(__name__)
       port=port,
       ssl_disabled = True)
 
-
-# 資料庫首頁
-@app.route('/')
-def index():
 
      # 建立cursor
     cursor = db.cursor()
@@ -169,6 +171,24 @@ def index():
 # 資料庫正規化清單
 @app.route('/db_normalization')
 def index2():
+
+    # 讀取ini設定檔
+    config = configparser.ConfigParser()
+    config.read('my_config.ini')
+    username = config['DB']['username']
+    db = config['DB']['db']
+    host = config['DB']['host']
+    pw = config['DB']['password']
+    port = config['DB'].getint('port')
+    
+    # 建立資料庫連接
+    db = pymysql.connect(
+      host= host,
+      user= username,
+      password= pw,
+      database= db,
+      port=port,
+      ssl_disabled = True)
 
     # 建立cursor
     cursor = db.cursor()

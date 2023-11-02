@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>{{title}}</title>
@@ -31,38 +32,38 @@
             </tbody>
         </table>
 
-                       
-                        <table class="table table-striped table-bordered" id="stock_daily">
-                            <thead>
-                                <tr class="table-warning">
-                                    <td colspan="6"> <a>資料表名稱：每日收盤資訊</a> <a href="#Back">Back </a></td>
-                                </tr>
-                                <tr>
-                                    <th scope="col">欄位項目</th>
-                                    <th scope="col">欄位名稱</th>
-                                    <th scope="col">欄位型態</th>
-                                    <th scope="col">是否空值</th>
-                                    <th scope="col">主鍵/外來鍵</th>
-                                    <th scope="col">欄位說明</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                                {% for rows in stock_daily_list %}
-                                
-                                <tr>
-                                    <td>{{ loop.index }}</td>
-                                    <td>{{rows.COLUMN_NAMES}}</td>
-                                    <td>{{rows.DATA_TYPE}}</td>
-                                    <td>{{rows.IS_NULLABLE}}</td>
-                                    <td>{{rows.COLUMN_KEY}}</td>
-                                    <td>{{rows.DESCS}}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                   
-  
+
+        <table class="table table-striped table-bordered" id="stock_daily">
+            <thead>
+                <tr class="table-warning">
+                    <td colspan="6"> <a>資料表名稱：每日收盤資訊</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for rows in stock_daily_list %}
+
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{rows.COLUMN_NAMES}}</td>
+                    <td>{{rows.DATA_TYPE}}</td>
+                    <td>{{rows.IS_NULLABLE}}</td>
+                    <td>{{rows.COLUMN_KEY}}</td>
+                    <td>{{rows.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
         <table class="table table-striped table-bordered" id="stock_daily_3">
             <tbody>
                 <tr class="table-warning">
@@ -197,14 +198,14 @@
             </tbody>
         </table>
     </div>
-    
-     
-        {% include "footer.html" %}
-        
-        <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}">
-        <link rel="stylesheet" href="{{url_for('static', filename='js/popper.min.js')}}">
-        <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.min.js')}}">
-        
+
+
+    {% include "footer.html" %}
+
+    <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/popper.min.js')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.min.js')}}">
+
 </body>
 
 </html>

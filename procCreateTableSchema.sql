@@ -7,6 +7,7 @@
 -- Modify His  : 
 -- (1) 2023-10-26 : Mark    : CREATE 
 -- (2) 2023-10-31 : Mark    :更新stock_daily的PK欄位
+-- (3) 2023-11-02 : Mark    :更新正規化表格
 -- ===================================================================
 
 -- 如果stock資料庫不存在就建立一個新的
@@ -163,8 +164,83 @@ BEGIN
 					sdate
 				)
 		);
+		
+		
+		-- 資料正規化關聯表
+		
+		DROP TABLE IF EXISTS stock_daily_3_db_normalization;
+		CREATE TABLE IF NOT EXISTS stock_daily_3_db_normalization
+		(
+			sdate varchar(10),
+			id varchar(10),
+			f_qty decimal(18, 0),
+			i_qty decimal(18, 0),
+			s_qty decimal(18, 0),
+			est_f_qty decimal(18, 0),
+			est_i_qty decimal(18, 0),
+			est_s_qty decimal(18, 0),
+			trs_f_percent decimal(18, 2),
+			trs_3_percent decimal(18, 2),
+			CONSTRAINT PK_stock_daily_3_db_normalization
+				PRIMARY KEY
+				(
+					id,
+					sdate
+				)
+		);
+
+		DROP TABLE IF EXISTS stock_daily_MT_All;
+		CREATE TABLE IF NOT EXISTS stock_daily_MT_All
+		(
+			sdate varchar(10),
+			id varchar(10),
+			ms_percent decimal(18, 2),
+			ms_dec_qty decimal(18, 0),
+			CONSTRAINT PK_stock_daily_MT_All
+				PRIMARY KEY
+				(
+					id,
+					sdate
+				)
+		);
         
-            -- 這邊開始建立stock_list資料集
+        
+       	DROP TABLE IF EXISTS stock_daily_MT_Financing;
+		CREATE TABLE IF NOT EXISTS stock_daily_MT_Financing
+		(
+			id varchar(10),
+			mt_b_qty decimal(18, 0),
+			mt_s_qty decimal(18, 0),
+			mt_r_qty decimal(18, 0),
+			mt_qty decimal(18, 0),
+			mt_dec_qty decimal(18, 0),
+			mt_limit_qty decimal(18, 0),
+			mt_use_percent decimal(18, 2),
+			CONSTRAINT PK_stock_daily_MT_Financing
+				PRIMARY KEY
+				(
+					id
+				)
+		);
+        
+        
+		DROP TABLE IF EXISTS stock_daily_MT_Securities;
+		CREATE TABLE IF NOT EXISTS stock_daily_MT_Securities
+		(
+			id varchar(10),
+			ss_b_qty decimal(18, 0),
+			ss_s_qt decimal(18, 0),
+			ss_r_qty decimal(18, 0),
+			ss_qty decimal(18, 0),
+			ss_dec_qty decimal(18, 0),
+			CONSTRAINT PK_stock_daily_MT_Securities
+				PRIMARY KEY
+				(
+					id
+				)
+		);
+		
+        -- 這邊開始建立stock_list資料集
 		INSERT INTO stock.stock_list (id,sname,stock_attr,industry) VALUES
 			 ('1101','台泥','上市','水泥工業'),
 			 ('1102','亞泥','上市','水泥工業'),
@@ -1378,7 +1454,74 @@ BEGIN
 						ELSE 'null'
 						END)  as descs"
 						);	
+						
+						
+			    WHEN 'stock_daily_3_db_normalization' THEN
+               SET @table_type='三大法人進出-正規化';
+			   SET @caseSQL = CONCAT("(
+						CASE 
+							WHEN COLUMN_NAME='sdate' THEN '交易日期' 
+							WHEN COLUMN_NAME='id' THEN '證券代號'
+                            WHEN COLUMN_NAME='f_qty' THEN '外資'
+                            WHEN COLUMN_NAME='i_qty' THEN '投信'
+                            WHEN COLUMN_NAME='s_qty' THEN '自營商'
+                            WHEN COLUMN_NAME='t_qty' THEN '單日合計'
+                            WHEN COLUMN_NAME='est_f_qty' THEN '估計外資持股'
+                            WHEN COLUMN_NAME='est_i_qty' THEN '估計投信持股'
+                            WHEN COLUMN_NAME='est_s_qty' THEN '估計自營商持股'
+                            WHEN COLUMN_NAME='est_t_qty' THEN '合計'
+                            WHEN COLUMN_NAME='trs_f_percent' THEN '外資比例'
+                            WHEN COLUMN_NAME='trs_3_percent' THEN '三大法人比例'
+						ELSE 'null'
+						END) as descs"
+						);
+						
+               WHEN 'stock_daily_MT_All' THEN
+               SET @table_type='融資融券總表-正規化';
+			   SET @caseSQL = CONCAT("(
+						CASE 
+							WHEN COLUMN_NAME='sdate' THEN '交易日期' 
+							WHEN COLUMN_NAME='id' THEN '證券代號'
+                            WHEN COLUMN_NAME='ms_percent' THEN '券資比'
+                            WHEN COLUMN_NAME='ms_dec_qty' THEN '資券相抵'
+						ELSE 'null'
+						END)  as descs"
+						);	
+						
+						
+			   WHEN 'stock_daily_MT_Financing' THEN
+               SET @table_type='融資總表-正規化';
+			   SET @caseSQL = CONCAT("(
+						CASE 
+							WHEN COLUMN_NAME='id' THEN '證券代號'
+                            WHEN COLUMN_NAME='mt_b_qty' THEN '融資買進'
+                            WHEN COLUMN_NAME='mt_s_qty' THEN '融資賣出'
+                            WHEN COLUMN_NAME='mt_r_qty' THEN '融資現償'
+                            WHEN COLUMN_NAME='mt_qty' THEN '融資餘額'
+                            WHEN COLUMN_NAME='mt_dec_qty' THEN '融資增減'
+                            WHEN COLUMN_NAME='mt_limit_qty' THEN '融資限額'
+                            WHEN COLUMN_NAME='mt_use_percent' THEN '融資使用率'
+						ELSE 'null'
+						END)  as descs"
+						);	
 
+
+			   WHEN 'stock_daily_MT_Securities' THEN
+               SET @table_type='融券總表-正規化';
+			   SET @caseSQL = CONCAT("(
+						CASE 
+							WHEN COLUMN_NAME='id' THEN '證券代號'
+                            WHEN COLUMN_NAME='ss_b_qty' THEN '融券賣出'
+                            WHEN COLUMN_NAME='ss_s_qt' THEN '融券買進'
+                            WHEN COLUMN_NAME='ss_r_qty' THEN '融券券償'
+                            WHEN COLUMN_NAME='ss_qty' THEN '融券餘額'
+                            WHEN COLUMN_NAME='ss_dec_qty' THEN '融券增減'
+                            WHEN COLUMN_NAME='ms_percent' THEN '券資比'
+                            WHEN COLUMN_NAME='ms_dec_qty' THEN '資券相抵'
+						ELSE 'null'
+						END)  as descs"
+						);	
+						
 				ELSE BEGIN END;  
 			END CASE;
             

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.min.css')}}">
+</head>
+
+<body>
+
+    {% include "header.html" %}
+
+    <div class="container py-3">
+        <table class="table table-striped table-bordered table-hover" id="Back">
+            <thead class="table-warning">
+                <tr>
+                    <th scope="col">資料表項目</th>
+                    <th scope="col">資料表名稱</th>
+                    <th scope="col">資料表說明</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in stock_all_datas %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td><a href=#{{row[1]}}>{{row[1]}}</a></td>
+                    <td>{{row[2]}}</td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+                       
+                        <table class="table table-striped table-bordered" id="stock_daily">
+                            <thead>
+                                <tr class="table-warning">
+                                    <td colspan="6"> <a>資料表名稱：每日收盤資訊</a> <a href="#Back">Back </a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="col">欄位項目</th>
+                                    <th scope="col">欄位名稱</th>
+                                    <th scope="col">欄位型態</th>
+                                    <th scope="col">是否空值</th>
+                                    <th scope="col">主鍵/外來鍵</th>
+                                    <th scope="col">欄位說明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                                {% for rows in stock_daily_list %}
+                                
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{rows.COLUMN_NAMES}}</td>
+                                    <td>{{rows.DATA_TYPE}}</td>
+                                    <td>{{rows.IS_NULLABLE}}</td>
+                                    <td>{{rows.COLUMN_KEY}}</td>
+                                    <td>{{rows.DESCS}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                   
+  
+        <table class="table table-striped table-bordered" id="stock_daily_3">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：每月營收</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+                {% for row in stock_daily_3_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_daily_mr">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：三大法人進出</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+                {% for row in stock_daily_mr_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_daily_mt">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：主力進出</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+                {% for row in stock_daily_mt_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_list">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：證券清冊</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+                {% for row in stock_list_all %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        <table class="table table-striped table-bordered" id="stock_monthly_revenue">
+            <tbody>
+                <tr class="table-warning">
+                    <td colspan="6"> <a name="ADM_AD_USERS"> 資料表名稱：融資融券</a> <a href="#Back">Back </a></td>
+                </tr>
+                <tr>
+                    <th scope="col">欄位項目</th>
+                    <th scope="col">欄位名稱</th>
+                    <th scope="col">欄位型態</th>
+                    <th scope="col">是否空值</th>
+                    <th scope="col">主鍵/外來鍵</th>
+                    <th scope="col">欄位說明</th>
+                </tr>
+                {% for row in stock_monthly_revenue_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{row.COLUMN_NAMES}}</td>
+                    <td>{{row.DATA_TYPE}}</td>
+                    <td>{{row.IS_NULLABLE}}</td>
+                    <td>{{row.COLUMN_KEY}}</td>
+                    <td>{{row.DESCS}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+     
+        {% include "footer.html" %}
+        
+        <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='js/popper.min.js')}}">
+        <link rel="stylesheet" href="{{url_for('static', filename='js/bootstrap.min.js')}}">
+        
+</body>
+
+</html>

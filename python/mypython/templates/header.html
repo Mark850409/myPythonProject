@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <div class="container-fluid justify-content-center">
+    <a class="navbar-brand" href="#">{{title}}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link"  href="{{url_for('index')}}">stock-資料檔案清單</a>
+        <a class="nav-link" href="{{url_for('index2')}}">stock-資料正規化清單</a>
+      </div>
+    </div>
+  </div>
+</nav>
+    <div class="container py-3">
+        <div class="alert alert-warning" role="alert">
+            公式NOTE:<br>
+            1. 券資比= 上市公司融券張數／上市公司融資張數<br>
+            2. 資券相抵= 前日融資餘額＋前日自有有價證券餘額＋前日自借券系統借入之有價<br>
+            證券餘額－前日融券餘額－前日辦理有價證券借貸之出借餘額＋本日<br>
+            融券現券償還＋本日融資買進＋本日交割之自有有價證券＋本日返還<br>
+            之出借有價證券＋本日自借券系統借入之有價證券<br>
+            <br>
+            資料正規化:<br>
+            1. 三大法人進出、融資融券看起來比較適合做拆分<br>
+            2. 三大法人進出:估計外資持股+估計投信持股+估計自營商持股，如此公式成立，依照資料第三階正規化，可移除合計欄位。<br>
+            3.融資融券：<br> (a) 依照上面的公式，如券資比、資券相抵可由資料表現有欄位推算出，依照資料第三階正規化，可移除券資比、資券相抵欄位。<br>
+               (b) 可以將融資、融券拆分為兩張獨立資料表，證券代號、資券相抵、券資比、交易日期為一張表
+        </div>
+    </div>

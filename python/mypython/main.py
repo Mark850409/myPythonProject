@@ -13,6 +13,7 @@ import collections
 
 app = Flask(__name__)
 
+# 資料庫首頁
 @app.route('/')
 def index():
     # 讀取ini設定檔
@@ -22,6 +23,7 @@ def index():
     db = config['DB']['db']
     host = config['DB']['host']
     pw = config['DB']['password']
+    port = config['DB'].getint('port')
     
     # 建立資料庫連接
     db = pymysql.connect(
@@ -29,8 +31,10 @@ def index():
       user= username,
       password= pw,
       database= db,
-      ssl_disabled='True')
-    
+      port=port,
+      ssl_disabled = True)
+
+     # 建立cursor
     cursor = db.cursor()
 
     # 讀取總表
@@ -137,23 +141,34 @@ def index():
         d['DESCS']      = row[4] #email
         d['TABLE_TYPE']      = row[5] #email
         stock_monthly_revenue_list.append(d)
+    
+    #字典傳遞資料
+    data = { 
+        'stock_all_datas': stock_all_datas,
+        'stock_daily_list':stock_daily_list,
+        'stock_daily_3_list':stock_daily_3_list,
+        'stock_daily_mr_list':stock_daily_mr_list,
+        'stock_daily_mt_list':stock_daily_mt_list,
+        'stock_list_all':stock_list_all,
+        'stock_monthly_revenue_list':stock_monthly_revenue_list,
+        'title':'stock-資料檔案清單（DTL_Data Table List）'
+    }
 
-
-    # 釋放連線
     db.commit()
+    
+    # 釋放連線
     cursor.close()
     db.close()
     
     # 渲染模板+資料傳送
-    return render_template("index.html",
-    stock_all_datas=stock_all_datas,
-    stock_daily_list=stock_daily_list,
-    stock_daily_3_list=stock_daily_3_list,
-    stock_daily_mr_list=stock_daily_mr_list,
-    stock_daily_mt_list=stock_daily_mt_list,
-    stock_list_all=stock_list_all,
-    stock_monthly_revenue_list=stock_monthly_revenue_list
-    )
+    return render_template("index.html",**data)
+    
+    
+# 資料庫正規化清單
+@app.route('/db_normalization')
+def index2():
+    return render_template("db_normalization.html",title='stock-資料正規化清單（db_normalization_Data Table List）')
+
 # 啟動CGI SERVER
 if __name__ == "__main__":
   CGIHandler().run(app)

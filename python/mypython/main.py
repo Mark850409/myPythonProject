@@ -267,7 +267,7 @@ def index2():
 
         #字典傳遞資料
         data = { 
-            'stock_all_datas':stock_all_datas,
+            'stock_all_datas_normalization':stock_all_datas_normalization,
             'stock_daily_3_db_normalization_list': stock_daily_3_db_normalization_list,
             'stock_daily_MT_All_list':stock_daily_MT_All_list,
             'stock_daily_MT_Financing_all':stock_daily_MT_Financing_all,

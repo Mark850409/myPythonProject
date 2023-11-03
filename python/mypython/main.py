@@ -14,10 +14,7 @@ import collections
 app = Flask(__name__)
 
 
-
-# 資料庫首頁
-@app.route('/')
-def index():
+def DB_connection():
 
     # 讀取ini設定檔
     config = configparser.ConfigParser()
@@ -38,20 +35,27 @@ def index():
       ssl_disabled = True)
 
 
+
+# 資料庫首頁
+@app.route('/')
+def index():
+
+    DB_connection()
+
+
      # 建立cursor
     cursor = db.cursor()
 
     # 讀取總表
     cursor.execute("""SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
-			WHEN 'stock_daily' THEN '每日收盤資訊' 
-            WHEN 'stock_daily_3' THEN '三大法人進出' 
-            WHEN 'stock_daily_mr' THEN '主力進出' 
-            WHEN 'stock_daily_mt' THEN '融資融券' 
-            WHEN 'stock_list' THEN '證券清冊' 
-            WHEN 'stock_monthly_revenue' THEN '每月營收' 
+			WHEN 'stock_daily_3_db_normalization' THEN '三大法人進出-正規化' 
+            WHEN 'stock_daily_MT_All' THEN '融資融券總表-正規化' 
+            WHEN 'stock_daily_MT_Financing' THEN '融資總表-正規化' 
+            WHEN 'stock_daily_MT_Securities' THEN '融券總表-正規化' 
 			END) as table_desc 
             FROM information_schema.tables t ,(select @i:=0) as i
-            WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data';
+            WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data' 
+            AND t.table_name IN('stock_daily_3_db_normalization','stock_daily_mt_all','stock_daily_mt_financing','stock_daily_mt_securities');
            """)
     stock_all_datas = cursor.fetchall()
 
@@ -194,16 +198,20 @@ def index2():
     cursor = db.cursor()
 
     # 讀取總表
-    cursor.execute("""SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
-			WHEN 'stock_daily_3_db_normalization' THEN '三大法人進出-正規化' 
-            WHEN 'stock_daily_MT_All' THEN '融資融券總表-正規化' 
-            WHEN 'stock_daily_MT_Financing' THEN '融資總表-正規化' 
-            WHEN 'stock_daily_MT_Securities' THEN '融券總表-正規化' 
+    cursor.execute("""
+    SELECT (@i:=@i+1) i,t.table_name,(CASE t.table_name
+			WHEN 'stock_daily' THEN '每日收盤資訊' 
+            WHEN 'stock_daily_3' THEN '三大法人進出' 
+            WHEN 'stock_daily_mr' THEN '主力進出' 
+            WHEN 'stock_daily_mt' THEN '融資融券' 
+            WHEN 'stock_list' THEN '證券清冊' 
+            WHEN 'stock_monthly_revenue' THEN '每月營收' 
 			END) as table_desc 
             FROM information_schema.tables t ,(select @i:=0) as i
-            WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data' 
-            AND t.table_name IN('stock_daily_3_db_normalization','stock_daily_mt_all','stock_daily_mt_financing','stock_daily_mt_securities');
-           """)
+            WHERE t.table_schema = 'stock' AND t.table_type='BASE TABLE' AND t.table_name <> 'stock_all_data'
+            AND t.table_name not IN('stock_daily_3_db_normalization','stock_daily_mt_all','stock_daily_mt_financing','stock_daily_mt_securities')
+           """);
+           
     stock_all_datas = cursor.fetchall()
 
 

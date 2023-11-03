@@ -24,6 +24,5 @@ COPY main.py /var/www/html
 COPY my_config.ini /var/www/html
 COPY templates /var/www/html/templates
 COPY static /var/www/html/static
-COPY DigiCertGlobalRootCA.crt.pem /var/www/html
 RUN chmod +X main.py && chmod 755 main.py 
 EXPOSE 80 22 2222

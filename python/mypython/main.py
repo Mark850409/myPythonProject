@@ -163,12 +163,13 @@ def index():
             'title':'stock-資料檔案清單（DTL_Data Table List）'
         }
 
-            db.commit()
+            
     except pymysql.Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
             return False
     finally:
             # 釋放連線
+            db.commit()
             cursor.close()
             db.close()
 
@@ -273,12 +274,13 @@ def index2():
             'title':'stock-資料正規化清單（db_normalization_Data Table List）'
         }
         
-        db.commit()
+        
     except pymysql.Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
             return False
     finally:
             # 釋放連線
+            db.commit()
             cursor.close()
             db.close()
     return render_template("db_normalization.html",**data)
